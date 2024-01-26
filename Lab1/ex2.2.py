@@ -13,7 +13,7 @@ def count_consonants(text):
     average_consonants = total_consonants / total_words if total_words > 0 else 0
     return average_consonants
 
-with open('textfile.txt', 'r') as file:
+with open('pg2701.txt', 'r') as file:
     text = file.read()
 
 # Find the start of Chapter 1
