@@ -1,7 +1,7 @@
 import re
 
 def count_consonants(text):
-    words = re.findall(r'\b\w+\b', text)
+    words = re.findall(r'\b\w+\b', text) # Used AI for this
     total_consonants = 0
     total_words = 0
 
