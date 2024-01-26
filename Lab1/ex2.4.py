@@ -1,5 +1,5 @@
 import re
-import time
+import timeit
 
 def count_vowels(text):
     words = re.findall(r'\b\w+\b', text) # Used AI for this
@@ -24,9 +24,6 @@ start = text.find('CHAPTER 1')
 if start != -1:
     text = text[start:]
 
-start_time = time.time()
-average_vowels = count_vowels(text)
-end_time = time.time()
+elapsed_time = timeit.timeit(lambda: count_vowels(text), number=1)
 
-print(f"Average number of vowels per word: {average_vowels}")
-print(f"Time taken: {end_time - start_time}")
+print(f"Time taken: {elapsed_time} seconds")
