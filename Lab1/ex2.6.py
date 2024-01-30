@@ -9,9 +9,7 @@ def fact(num):
     return result
 
 def fact_list_comprehension(num):
-    ans = [1]
-    [ans.append(ans[-1] * i) for i in range(1, num+1)]
-    return ans[-1]
+    return [fact(i) for i in range(1, num+1)]
 
 elapsed_time = timeit.timeit(lambda: fact(100), number=1000)
 print(f"Time taken for fact: {elapsed_time} seconds")
