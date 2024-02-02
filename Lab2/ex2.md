@@ -18,10 +18,10 @@ To modify interpolation search to follow a different distribution, we would need
 
 Linear search being the **only** option for searching data would occur when the data is randomly sorted in a way that would fail binary and interpolation search. That is to say if both binary and interpolation would end up dismissing the wrong sides of the array due to the random sort.
 
-#### 5 In which case will linear search outperform both binary and interpolation search, and why?
+#### 5. In which case will linear search outperform both binary and interpolation search, and why?
 
 Linear search outperforms both binary and interpolation search for its best case scenario when the key is the first value in the array. The complexity for linear search in this case is O(1) whereas binary and interpolation would continue to go through multiple iterations/calls before landing on the first element.
 
-#### 6 Is there a way to improve binary and interpolation search to solve this issue?
+#### 6. Is there a way to improve binary and interpolation search to solve this issue?
 
 Binary always divides the array into halves, so even if it is known that the key is on the first position, binary would keep dividing until it ends up on the first element. For interpolation it is much the same as it relies on probability. The **only** way to account for this is the trivial solution of adding a check on the first element before proceeding with the binary/interpolation algorithm; which isn't very useful as if the target value is on the second position then the problem still persists.
