@@ -1,7 +1,7 @@
 # 1. A profiler are designed to provide an execution profile for a given program and measures performance of a program. Which shows statistics that describe how often and for how long various parts of the program executed.
 """
 2. Profiling is the process of measuring the performance of a program. It can be used to measure the time complexity of a program, and to identify the parts of the program that are taking the most time to execute.
-Benchmarking is the process of comparing the performance of a program to other programs, or to a previous version of the program. It can be used to measure the performance of a program, and to identify the parts of the program that are taking the most time to execute.
+Benchmarking is a systematic process of evaluating and comparing a program's performance under specific conditions, often used to identify performance bottlenecks and guide optimization efforts.
 """
 """
 3. A sample output shows the time taken to execute the function and the number of times the function was called.
