@@ -15,12 +15,14 @@ def merge(arr, low, mid, high):
             arr[k] = right[j]
             j += 1
 
+
 def merge_sort(arr, low, high):
     if low < high:
         mid = (low + high) // 2
         merge_sort(arr, low, mid)
         merge_sort(arr, mid + 1, high)
         merge(arr, low, mid, high)
+        print('recursive call')
 
 arr = [8, 42, 25, 3, 3, 2, 27, 3]
 merge_sort(arr, 0, len(arr)-1)
