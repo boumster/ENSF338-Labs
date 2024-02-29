@@ -1,0 +1,7 @@
+# Exercise 7
+### 1. Give an expression for the time complexity of the reverse() implementation. Explain how you reached the conclusion describing your step-by-step reasoning
+The for loop runs n times, where n is the size of the linked list using self.get_size(). Then inside the for loop self.get_element_at_pos(i) is called which traverses the linked list to find the element at position i, which has a worst case of O(n). Since self.get_element_at_pos(i) has a complexity of O(n) and is performed for each call of the loop it has a total complexity of O(n^2)
+
+### 2. Design an optimized implementation of the same function with better performance. Discuss which changes you made and how they should be expected to result in a better function.
+
+Initialize three pointers, one for current node. previous node, and next node. Where previously is initially set to none and current is set to head node. We use a while loop that continues until it has traversed each node. Then in the loop we initialize the next node as the currents pointer to the next node and the change the current nodes next pointer to the previous node, and then previous node is current node and current node is the next node and when exited it will make the head the previous node as this is the end of the original linked list. Fully reversing the linked list with a time complexity of O(n) rather than O(n^2) as it is traversing through the linked list once.
