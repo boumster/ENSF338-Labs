@@ -1,0 +1,20 @@
+# Exercise 6
+### 1. Compare the advantages and disadvantagees of arrays vs linked list (complexity of taask completion)
+Arrays:
+* Traversing/Searching is O(1) when index is known. When not known, complexity depends on if the array is sorted, the type of searching algorithm implementation, etc.
+* Appending/deletion is O(1) best case (appending to/deleting at the end of the array), but is O(n) both worst case and average case (at middle/beginning) as we may need to shift elements or even move the array entirely if insufficient space for expansion.
+<!--end of list-->
+Linked Lists:
+* Traversing/Searching is  O(n) as linked lists do not have index functionality
+* Appending/deletion is O(1) regardless, no need to shift elements just setting pointers (constant complexity)
+<!--end of list-->
+### 2. For arrays, we are interested in implementing a replace function that acts as a deletion followed by insertion. How can this function be implemented to minimize the impact of each of the standalone tasks?
+The implementation of a replacement function acting as specified would have to ensure that post-deletion, the space that the original value held is not freed from the array, and instead immediately be replaced with the new value. This is to ensure that the array is not needlessly resized twice (first shortened after space is freed, and second re-expansion of the array to fit the new value) which are both costly operations for arrays (resizing is O(n) for both shrinking and expanding the array). The best implementation is simply directly overwriting/replacing the element.
+
+### 3. Assuming you are tasked to implement a doubly linked list with a sort function, given the list of sort functions below, state the feasibility of using each one of them and elaborate why is it possible or not to use them.<br>     1. Insertion sort<br>      2. Merge sort
+Insertion sort is feasible with a doubly linked list with rather simple implementation as well. Comparing and moving (inserting) elements towards the start of the list is simple in a doubly linked list as we can traverse backwards and check/insert elements easily. While merge sort is feasible, some additional overhead is required in a doubly linked list implementation. While extra space for new sub-arrays are no longer needed, extra overhead is required to locate the linked list's midpoint, and managing pointers when merging can be complicated.
+
+### 4. Also show the expected complexity for each and how it differs from applying it to a regular array.
+For insertion sort, average case comparisons and movement is O(n^2). In a doubly linked list, the complexity in comparisons is the same, as the algorithm still needs to iterate over the list and, for each element, scan backwards to find the correct position for insertion. While the number of movements is still O(n^2), the doubly linked list approach has a benefit in space complexity. Moving elements does not require O(n) deleting and creating new space as in an array, as the linked list implementation will have deletion and insertion space complexity of O(1).
+
+For merge sort, the array implementation's complexity is O(n log n) average case. For a linked list, there is extra overhead involved in finding the midpoint of the linked list as there is no index to set the midpoint to. When using divide and conquer on a linked list, finding the midpoint and size of the list is a linear O(n) operation as we iterate through each element to find both; the overall time complexity should remain O(n logn) regardless. The reason being that finding the midpoint only occurs once per level of recursion (with log n levels), and in each level the size of the list is also halved. As such the time complexity of merge sort in a doubly linked list is still O(n logn) on average. The only difference will be in space complexity, since division will work by manipulating pointers, sub-arrays do not need to be created per level of recursion and as such the doubly linked list is still O(1) space complexity.
