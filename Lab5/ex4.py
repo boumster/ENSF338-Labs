@@ -1,3 +1,6 @@
+import timeit
+import random
+
 class arrayQueue:
 
     def __init__(self):
@@ -32,13 +35,31 @@ class linkedQueue:
             self.head = item
         
     def dequeue(self):
-        if self.head == None:
+        if self.head is None:  # The queue is empty
             return None
+        if self.head == self.tail:  # There's only one item in the queue
+            node = self.head
+            self.head = self.tail = None
         else:
-            tail = self.tail
-            current = self.head
-            while current.next != tail:
-                current = current.next
-            current.next = None
-            self.tail = current
-            return tail.data
+            node = self.head
+            while node.next != self.tail:
+                node = node.next
+            node.next = None
+            self.tail = node
+        return node.data
+        
+size = 10000
+
+linked = linkedQueue()
+array = arrayQueue()
+
+def generate_task(func):
+    for i in range(size):
+        random_number = random.random()
+        if random_number > 0.7:
+            func.dequeue()
+        else:
+            func.enqueue(random_number)
+
+print("Linked Queue: ", timeit.timeit(lambda: generate_task(linked), number=100))
+print("Array Queue: ", timeit.timeit(lambda: generate_task(array), number=100))
