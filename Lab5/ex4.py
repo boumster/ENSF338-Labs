@@ -1,20 +1,7 @@
 import timeit
 import random
+import matplotlib.pyplot as plt
 
-class arrayQueue:
-
-    def __init__(self):
-        self.queue = []
-
-    def enqueue(self, item): # Add item to the front of the queue
-        new_array = [item]
-        for item in self.queue:
-            new_array.append(item)
-        self.queue = new_array
-
-    def dequeue(self): # Remove item from the end of the queue
-        return self.queue.pop()
-    
 class Node:
     def __init__(self, data):
         self.data = data
@@ -47,19 +34,56 @@ class linkedQueue:
             node.next = None
             self.tail = node
         return node.data
-        
-size = 10000
 
-linked = linkedQueue()
-array = arrayQueue()
+class arrayQueue:
+    def __init__(self):
+        self.queue = []
+
+    def enqueue(self, item):
+        self.queue.insert(0, item)
+
+    def dequeue(self):
+        if len(self.queue) < 1:
+            return None
+        return self.queue.pop()
+
+size = 10000
+num_runs = 100
+
+linked_times = []
+array_times = []
 
 def generate_task(func):
-    for i in range(size):
+    linked = linkedQueue()
+    array = arrayQueue()
+    for _ in range(size):
         random_number = random.random()
         if random_number > 0.7:
-            func.dequeue()
+            if func == 'linked':
+                linked.dequeue()
+            else:
+                array.dequeue()
         else:
-            func.enqueue(random_number)
+            if func == 'linked':
+                linked.enqueue(random_number)
+            else:
+                array.enqueue(random_number)
 
-print("Linked Queue: ", timeit.timeit(lambda: generate_task(linked), number=100))
-print("Array Queue: ", timeit.timeit(lambda: generate_task(array), number=100))
+for _ in range(num_runs):
+    linked_time = timeit.timeit(lambda: generate_task('linked'), number=1)
+    array_time = timeit.timeit(lambda: generate_task('array'), number=1)
+    print('Linked: ', linked_time, 'Array: ', array_time)
+    linked_times.append(linked_time)
+    array_times.append(array_time)
+
+plt.hist(linked_times, bins=20, alpha=0.5, label='Linked Queue')
+plt.hist(array_times, bins=20, alpha=0.5, label='Array Queue')
+plt.legend(loc='upper right')
+plt.xlabel('Time (seconds)')
+plt.ylabel('Frequency')
+plt.title('Distribution of Times for Linked Queue and Array Queue')
+plt.show()
+
+# 5, The array queue's enqueue operation is slower (O(n)) due to shifting elements, while its dequeue operation is faster (O(1)) as it removes the last element. 
+# Conversely, the linked queue's enqueue operation is faster (O(1)) as it adds a new node to the front, but its dequeue operation is slower (O(n)) as it traverses the queue to find the second to last node.
+# But the array is performing faster compared to the linked queue due to the use of inbuilt functions as well as not needing to allocate memory for each node which causes time overhead.
