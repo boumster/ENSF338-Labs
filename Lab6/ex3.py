@@ -43,7 +43,7 @@ def build_tree(expression):
         elif token in '+-*/':
             node = Node(token)
             stack.append(node)
-    if len(stack) == 3: # if there are 3 elements in the stack would mean the right side of the tree is not complete as it ends with a constant
+    if len(stack) == 3: # if there are 3 elements in the stack would mean the right side or left side of the tree is not complete as it ends with a constant
         right = stack.pop()
         parent = stack.pop()
         left = stack.pop()
