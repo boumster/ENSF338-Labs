@@ -93,18 +93,26 @@ def test_time_per_task(tasks, test):
             time_per_task.append(timeit.timeit(lambda: test.enqueue(random.randint(1,100)), number=1))
         else:
             time_per_task.append(timeit.timeit(lambda: test.dequeue(), number=1))
-    
-    time_average = sum(time_per_task) / len(time_per_task)
-    return time_average
+        time_average = sum(time_per_task) / len(time_per_task)
+        return time_average
 
-print_list = ListPriorityQueue()
-for i in range(10):
-    print_list.enqueue(random.randint(1,100))
-print(f"ListPriorityQueue: {print_list.head.data}")
+def test_overall_time(tasks, test):
+    for task in tasks:
+        if task == "enqueue":
+            test.enqueue(random.randint(1,100))
+        else:
+            test.dequeue()
 
-print_heap = HeapPriorityQueue()
-print_heap.heapify([random.randint(1,100) for i in range(10)])
-print(f"HeapPriorityQueue: {print_heap.heap}")
+print(f"List Implementation overall time: {timeit.timeit(lambda: test_overall_time(tasks, test_list), number=1)}")
+print(f"Heap Implementation overall time: {timeit.timeit(lambda: test_overall_time(tasks, test_heap), number=1)}\n")
 
-print(f"ListPriorityQueue time: {test_time_per_task(tasks, test_list)}")
-print(f"HeapPriorityQueue time: {test_time_per_task(tasks, test_heap)}")
+print(f"ListPriorityQueue average time per task: {test_time_per_task(tasks, test_list)}")
+print(f"HeapPriorityQueue average time per task: {test_time_per_task(tasks, test_heap)}")
+
+# The heap implementation from the results seems to be slower than the list implementation.
+# Despite the lower complexity, this could be because of several reasons. When dequeueing
+# for example, the heap implementation has to re-heapify the array, which is a costly operation.
+# The list implementation on the other hand, only has to remove the first element. Another factor
+# could be the size of the array. Since our datasets are relatively small, the overhead of the heap's
+# constant re-heapifying is costly compared to the list only needing to find the proper spot to insert
+# once. 
