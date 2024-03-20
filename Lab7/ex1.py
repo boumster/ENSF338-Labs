@@ -68,17 +68,35 @@ class BinarySearchTree:
 
 import random
 import timeit
+import matplotlib.pyplot as plt
 
-def main():
+def generate_tasks():
+    tasks = [i for i in range(1, 1001)]
+    random_tasks = [random.sample(tasks, len(tasks)) for _ in range(1000)]
+    return random_tasks
+
+def measure_performance(tasks, bst):
+    performance = []
+    balance_values = []
+    for task in tasks:
+        for item in task:
+            value = bst.search(item)
+            if value is not None:
+                balance_values.append(abs(value.balance))
+                performance.append(timeit.timeit(lambda: bst.search(item), number=1))
+    return performance, balance_values
+
+def plot_data(balance_values, performance):
+    plt.scatter(balance_values, performance)
+    plt.xlabel('Absolute Balance')
+    plt.ylabel('Search Time')
+    plt.title('Balance vs Search Time')
+    plt.show()
+
+if __name__ == "__main__":
     bst = BinarySearchTree()
     for i in range(1000):
         bst.insert(random.randint(0, 1000))
-    print(bst.root.balance)
-    search_tasks = list(range(1000))
-    random.shuffle(search_tasks)
-    for task in search_tasks:
-        result = bst.search(task)
-        print(f"Searching for {task}... Found: {result is not None}")
-
-if __name__ == "__main__":
-    main()
+    tasks = generate_tasks()
+    performance, balance_values = measure_performance(tasks, bst)
+    plot_data(balance_values, performance)
